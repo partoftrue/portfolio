@@ -1,40 +1,5 @@
-import { Switch, Route } from "wouter";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/not-found";
-import Home from "@/pages/Home";
-import AuthPage from "@/pages/auth-page";
-import AdminDashboard from "@/pages/admin-dashboard";
-import { ThemeProvider } from "./providers/ThemeProvider";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./lib/queryClient";
-import { AuthProvider } from "@/hooks/use-auth";
-import { ProtectedRoute } from "@/lib/protected-route";
-
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/auth" component={AuthPage} />
-      <ProtectedRoute path="/admin" component={AdminDashboard} adminOnly={true} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
-
-function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <ThemeProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Router />
-          </TooltipProvider>
-        </ThemeProvider>
-      </AuthProvider>
-    </QueryClientProvider>
-  );
-}
-
-export default App;
+import { useState } from "react";
+import { ArrowUpRight, Github, Mail, Moon, Sun } from "lucide-react";
+const projects=[{name:"Itunda",type:"Super App",description:"A Rwanda-focused super app exploring identity, communication, marketplace, maps, and mini apps.",stack:"Android · iOS · Go · PostgreSQL · Kafka",link:"https://github.com/Itunda-rw/itunda"},{name:"Iris",type:"Mobile App",description:"A personal secretary and work-management app for schedules, records, tasks, notifications, and everyday organization.",stack:"Flutter · Dart · Firebase · Riverpod",link:"https://github.com/partoftrue/iris"},{name:"WebtoonDabom",type:"University Project",description:"A webtoon community experience with authentication and mobile-first screens.",stack:"React Native · Firebase · JavaScript",link:"https://github.com/partoftrue"}];
+const skills=["Kotlin","Flutter","Dart","React Native","TypeScript","Go","PostgreSQL","Firebase","GitHub","AI-assisted development"];
+export default function App(){const[dark,setDark]=useState(false);return <div className={dark?"site dark":"site"}><header className="nav"><a className="brand" href="#">ER<span>.</span></a><nav><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav><button className="icon-button" aria-label="Toggle theme" onClick={()=>setDark(!dark)}>{dark?<Sun size={18}/>:<Moon size={18}/>}</button></header><main><section className="hero"><div className="eyebrow">SOFTWARE DEVELOPER · MOBILE · AI</div><h1>Building simple products<br/><em>for real people.</em></h1><p className="hero-copy">I’m Eric, a software developer from Rwanda living in Korea. I build mobile and web experiences with a focus on useful products, clean interfaces, and fast learning.</p><div className="actions"><a className="button primary" href="#work">View my work <ArrowUpRight size={17}/></a><a className="button secondary" href="mailto:partoftrue@gmail.com">Get in touch</a></div><div className="hero-meta"><span>Based in Korea</span><span>·</span><span>English + Korean</span><span>·</span><span>Open to opportunities</span></div></section><section id="work" className="section"><div className="section-head"><div><span className="label">01</span><h2>Selected work</h2></div><span className="section-note">Projects I’m building and learning from</span></div><div className="projects">{projects.map((p,i)=><article className="project" key={p.name}><div className="project-index">0{i+1}</div><div className="project-body"><div className="project-top"><span>{p.type}</span><a href={p.link} target="_blank" rel="noreferrer"><ArrowUpRight size={20}/></a></div><h3>{p.name}</h3><p>{p.description}</p><div className="stack">{p.stack}</div></div></article>)}</div></section><section id="about" className="section"><div className="section-head"><div><span className="label">02</span><h2>About me</h2></div></div><div className="about-grid"><p className="about-lead">I like turning ideas into products that feel clear, fast, and human.</p><div><p>I studied Software at Baekseok University and have spent years living, studying, working, and communicating in Korea. Alongside development, I have taught English for 7+ years and worked in customer-facing roles for 2+ years.</p><p>That combination shapes how I develop: I care about the person using the product, not only the code behind it.</p></div></div><div className="skills">{skills.map(s=><span key={s}>{s}</span>)}</div></section><section id="contact" className="contact"><span className="label">03</span><h2>Let’s build something useful.</h2><p>Interested in software, mobile products, startups, or global teams.</p><div className="contact-links"><a href="mailto:partoftrue@gmail.com"><Mail size={18}/> partoftrue@gmail.com</a><a href="https://github.com/partoftrue" target="_blank" rel="noreferrer"><Github size={18}/> GitHub</a><a href="https://partoftrue.com" target="_blank" rel="noreferrer">partoftrue.com <ArrowUpRight size={17}/></a></div></section></main><footer><span>© 2026 TUYIZERE ERIC</span><span>Built with React · Vite · Vercel</span></footer></div>}
